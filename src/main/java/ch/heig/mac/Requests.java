@@ -23,7 +23,10 @@ public class Requests {
     }
 
     public List<JsonObject> inconsistentRating() {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT imdb.id AS imdb_id, tomatoes.viewer.rating AS tomatoes_rating, imdb.rating AS imdb_rating\n" +
+                "FROM `mflix-sample`._default.movies\n" +
+                "WHERE tomatoes.viewer.rating != 0 AND ABS(tomatoes.viewer.rating - imdb.rating) >= 7");
+        return result.rowsAs(JsonObject.class);
     }
 
     public List<JsonObject> hiddenGem() {
