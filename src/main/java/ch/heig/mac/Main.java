@@ -29,5 +29,6 @@ public class Main {
         requests.getCollectionNames().forEach(System.out::println);
         requests.inconsistentRating().forEach(System.out::println);
         requests.hiddenGem().forEach(System.out::println);
+        requests.topReviewers().forEach(System.out::println);
     }
 }

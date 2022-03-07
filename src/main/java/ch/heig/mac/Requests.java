@@ -4,6 +4,7 @@ import java.util.List;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.json.JsonObject;
 import com.couchbase.client.java.query.QueryResult;
+import netscape.javascript.JSObject;
 
 
 public class Requests {
@@ -37,7 +38,12 @@ public class Requests {
     }
 
     public List<JsonObject> topReviewers() {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT comments.name, COUNT(comments.name) AS cnt\n" +
+                "FROM `mflix-sample`._default.comments\n" +
+                "GROUP BY comments.name\n" +
+                "ORDER BY cnt DESC\n" +
+                "LIMIT 10");
+        return result.rowsAs(JsonObject.class);
     }
 
     public List<String> greatReviewers() {
