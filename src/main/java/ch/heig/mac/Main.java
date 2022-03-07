@@ -30,5 +30,6 @@ public class Main {
         requests.inconsistentRating().forEach(System.out::println);
         requests.hiddenGem().forEach(System.out::println);
         requests.topReviewers().forEach(System.out::println);
+        requests.greatReviewers().forEach(System.out::println);
     }
 }
