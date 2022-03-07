@@ -30,7 +30,10 @@ public class Requests {
     }
 
     public List<JsonObject> hiddenGem() {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT title\n" +
+                "FROM `mflix-sample`._default.movies\n" +
+                "WHERE tomatoes.critic.rating == 10 AND tomatoes.viewer.rating IS MISSING");
+        return  result.rowsAs(JsonObject.class);
     }
 
     public List<JsonObject> topReviewers() {
