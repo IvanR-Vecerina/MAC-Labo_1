@@ -34,5 +34,7 @@ public class Main {
         requests.bestMoviesOfActor("Ralph Fiennes").forEach(System.out::println);
         requests.plentifulDirectors().forEach(System.out::println);
         requests.confusingMovies().forEach(System.out::println);
+        requests.commentsOfDirector1("Woody Allen").forEach(System.out::println);
+        requests.commentsOfDirector2("Woody Allen").forEach(System.out::println);
     }
 }

@@ -78,11 +78,21 @@ public class Requests {
     }
 
     public List<JsonObject> commentsOfDirector1(String director) {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT movies._id AS movie_id, comments.text\n" +
+                "FROM `mflix-sample`._default.movies\n" +
+                "INNER JOIN `mflix-sample`._default.comments ON comments.movie_id = movies._id\n" +
+                "WHERE ARRAY_CONTAINS(movies.directors, '" + director + "');");
+        return result.rowsAs(JsonObject.class);
     }
 
     public List<JsonObject> commentsOfDirector2(String director) {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT movie_id, text\n" +
+                "FROM `mflix-sample`._default.comments\n" +
+                "WHERE movie_id IN (\n" +
+                "    SELECT RAW movies._id\n" +
+                "    FROM `mflix-sample`._default.movies\n" +
+                "    WHERE ARRAY_CONTAINS(movies.directors, '" + director +"'));");
+        return result.rowsAs(JsonObject.class);
     }
 
     // Returns the number of documents updated.
