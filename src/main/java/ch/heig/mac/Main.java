@@ -32,5 +32,7 @@ public class Main {
         requests.topReviewers().forEach(System.out::println);
         requests.greatReviewers().forEach(System.out::println);
         requests.bestMoviesOfActor("Ralph Fiennes").forEach(System.out::println);
+        requests.plentifulDirectors().forEach(System.out::println);
+        requests.confusingMovies().forEach(System.out::println);
     }
 }
