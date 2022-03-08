@@ -31,5 +31,6 @@ public class Main {
         requests.hiddenGem().forEach(System.out::println);
         requests.topReviewers().forEach(System.out::println);
         requests.greatReviewers().forEach(System.out::println);
+        requests.bestMoviesOfActor("Ralph Fiennes").forEach(System.out::println);
     }
 }

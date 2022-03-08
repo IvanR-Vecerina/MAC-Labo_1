@@ -55,7 +55,10 @@ public class Requests {
     }
 
     public List<JsonObject> bestMoviesOfActor(String actor) {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT imdb.id imdb_id, imdb.rating, (`cast`)\n" +
+                "FROM `mflix-sample`._default.movies\n" +
+                "WHERE ISNUMBER(imdb.rating) AND imdb.rating > 8 AND ARRAY_CONTAINS((`cast`), \""+ actor + "\")");
+        return result.rowsAs(JsonObject.class);
     }
 
     public List<JsonObject> plentifulDirectors() {
