@@ -66,7 +66,10 @@ public class Requests {
     }
 
     public List<JsonObject> confusingMovies() {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("SELECT _id AS movie_id, title\n" +
+                "FROM `mflix-sample`._default.movies\n" +
+                "WHERE ARRAY_COUNT(directors) > 20;");
+        return result.rowsAs(JsonObject.class);
     }
 
     public List<JsonObject> commentsOfDirector1(String director) {
