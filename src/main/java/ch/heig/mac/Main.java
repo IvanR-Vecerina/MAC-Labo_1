@@ -36,5 +36,6 @@ public class Main {
         requests.confusingMovies().forEach(System.out::println);
         requests.commentsOfDirector1("Woody Allen").forEach(System.out::println);
         requests.commentsOfDirector2("Woody Allen").forEach(System.out::println);
+        System.out.println(requests.removeEarlyProjection("573a13e7f29313caabdc7372"));
     }
 }

@@ -3,6 +3,8 @@ package ch.heig.mac;
 import java.util.List;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.json.JsonObject;
+import com.couchbase.client.java.query.QueryMetrics;
+import com.couchbase.client.java.query.QueryOptions;
 import com.couchbase.client.java.query.QueryResult;
 import netscape.javascript.JSObject;
 
@@ -97,7 +99,11 @@ public class Requests {
 
     // Returns the number of documents updated.
     public long removeEarlyProjection(String movieId) {
-        throw new UnsupportedOperationException("Not implemented, yet");
+        QueryResult result = cluster.query("UPDATE `mflix-sample`._default.theaters AS t\n" +
+                "SET t.schedule = ARRAY v FOR v IN t.schedule WHEN (v.movieId = \"" + movieId + "\" AND v.hourBegin >= \"18:00:00\") OR v.movieId != \"" + movieId + "\" END\n" +
+                "WHERE ANY v IN t.schedule SATISFIES v.movieId = \"" + movieId + "\" AND v.hourBegin < \"18:00:00\" END;", QueryOptions.queryOptions().metrics(true));
+
+        return result.metaData().metrics().get().mutationCount();
     }
 
     public List<JsonObject> nightMovies() {
