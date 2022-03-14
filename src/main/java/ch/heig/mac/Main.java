@@ -37,5 +37,6 @@ public class Main {
         requests.commentsOfDirector1("Woody Allen").forEach(System.out::println);
         requests.commentsOfDirector2("Woody Allen").forEach(System.out::println);
         System.out.println(requests.removeEarlyProjection("573a13e7f29313caabdc7372"));
+        requests.nightMovies().forEach(System.out::println);
     }
 }
