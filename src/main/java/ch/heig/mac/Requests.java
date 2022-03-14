@@ -107,7 +107,7 @@ public class Requests {
     }
 
     public List<JsonObject> nightMovies() {
-        QueryResult result = cluster.query("SELECT _id, title\n" +
+        QueryResult result = cluster.query("SELECT _id movie_id, title\n" +
                 "FROM `mflix-sample`.`_default`.`movies`\n" +
                 "WHERE _id IN (SELECT RAW sch.movieId\n" +
                 "FROM `mflix-sample`.`_default`.`theaters`\n" +
